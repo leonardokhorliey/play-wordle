@@ -19,6 +19,7 @@ function App() {
   const [passedGuess, setPassedGuess] = useState(false)
   const [greenIndexes, setGreenIndexes]  = useState([])
   const [yellowIndexes, setYellowIndexes]  = useState([])
+  const [presentReport, setPresentReport] = useState(false)
 
   
   
@@ -50,6 +51,7 @@ function App() {
     
     let k = numOfAttempts * NUMBER_OF_LETTERS
     let count = 0
+    let finished = false
     
     let greenIndices = []
     let yellowIndices = []
@@ -89,7 +91,12 @@ function App() {
     setLettersEntered(0)
     setLettersGuessed([])
     setTimeout(() => {
-      count === NUMBER_OF_LETTERS && setPassedGuess(true)
+      if (count === NUMBER_OF_LETTERS) {
+        finished = true
+        setPassedGuess(true)
+      }
+      console.log(numOfAttempts)
+      setPresentReport((numOfAttempts === NUMBER_OF_ATTEMPTS - 1) || finished)
     }, 100 * (NUMBER_OF_LETTERS + 5))
     
   }
@@ -134,6 +141,7 @@ function App() {
   const restartGame = (choice) => {
     setWord(WORDS[choice - 5][Math.floor(Math.random()*WORDS[choice - 5].length)])
     setPassedGuess(false)
+    setPresentReport(false)
     setNumOfAttempts(0)
     setNUMBER_OF_ATTEMPTS(choice + 1)
     setNUMBER_OF_LETTERS(choice)
@@ -172,7 +180,7 @@ function App() {
         <h1>Wordle Clone</h1>
         <Boxes numberOfAttempts = {NUMBER_OF_ATTEMPTS} numberOfLetters = {NUMBER_OF_LETTERS}  />
         <ScreenKeyboard btnClick = {keyEntry} />
-        {(numOfAttempts === NUMBER_OF_ATTEMPTS || passedGuess) && <Report attempts= {numOfAttempts} letterCount= {NUMBER_OF_LETTERS} pass = {passedGuess} totalAttempts= {NUMBER_OF_ATTEMPTS} restart = {restartGame} word = {word} maxLetters = {WORDS.length + 4} indices = {[greenIndexes, yellowIndexes]}/>}
+        {presentReport && <Report attempts= {numOfAttempts} letterCount= {NUMBER_OF_LETTERS} pass = {passedGuess} totalAttempts= {NUMBER_OF_ATTEMPTS} restart = {restartGame} word = {word} maxLetters = {WORDS.length + 4} indices = {[greenIndexes, yellowIndexes]}/>}
         
         
         <p className= "copyright">
