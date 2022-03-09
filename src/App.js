@@ -46,7 +46,7 @@ function App() {
     let lettersOfWord = word.split('')
     let lettersOfWordDuplicate = lettersOfWord.map((t) => t)
     let arraytoCheck = lettersGuessed.map((t) => t)
-    //console.log(lettersOfWord)
+    console.log(lettersOfWord)
     
     let k = numOfAttempts * NUMBER_OF_LETTERS
     let count = 0
@@ -57,10 +57,7 @@ function App() {
     
 
     for (let i = 0; i < lettersOfWordDuplicate.length; i++) {
-      let p = document.getElementsByClassName('letter-box')[k + i]
       if  (lettersOfWordDuplicate[i] === arraytoCheck[i]) {
-        p.style.backgroundColor = 'green'
-        colorKeyboard(arraytoCheck[i], 'green')
         greenIndices.push(k + i)
         lettersOfWord.splice(lettersOfWord.indexOf(arraytoCheck[i]), 1)
         arraytoCheck[i] = ' '
@@ -72,24 +69,17 @@ function App() {
     
 
     arraytoCheck.map((letter, i) => {
-      
-      let box = document.getElementsByClassName('letter-box')[k + i]
 
       if (lettersOfWord.includes(letter)) {
-        box.style.backgroundColor = 'yellow'
-        colorKeyboard(lettersGuessed[i], 'yellow')
         yellowIndices.push(k + i)
         lettersOfWord.splice(lettersOfWord.indexOf(letter), 1)
-      } else {
-        if (letter === ' ') return 0
-        box.style.backgroundColor = 'grey'
-        colorKeyboard(lettersGuessed[i], 'grey')
-        //console.log('grey')
       }
       return 1
       
 
     })
+
+    colorBoxes(yellowIndices, greenIndices, lettersGuessed, k)
     //console.log(yellowIndices)
     setYellowIndexes([...yellowIndexes, ...yellowIndices])
     setGreenIndexes([...greenIndexes, ...greenIndices])
@@ -98,7 +88,33 @@ function App() {
     setNumOfAttempts(numOfAttempts + 1)
     setLettersEntered(0)
     setLettersGuessed([])
-    count === NUMBER_OF_LETTERS && setPassedGuess(true)
+    setTimeout(() => {
+      count === NUMBER_OF_LETTERS && setPassedGuess(true)
+    }, 100 * (NUMBER_OF_LETTERS + 5))
+    
+  }
+
+  const colorBoxes = (yellowIndices, greenIndices, lettersGuessed, k) => {
+    let pk = Array.from(document.getElementsByClassName("letter-box")).slice(k, k + NUMBER_OF_LETTERS)
+    
+        
+    pk.map((box, i) => {
+      setTimeout(() => {
+        if (greenIndices.includes(pk.indexOf(box) + k)) {
+          box.style.backgroundColor = 'green'
+          colorKeyboard(lettersGuessed[i], 'green')
+        }
+        else if (yellowIndices.includes(pk.indexOf(box) + k)) {
+          box.style.backgroundColor = 'yellow'
+          colorKeyboard(lettersGuessed[i], 'yellow')
+
+        }
+        else {
+          box.style.backgroundColor = 'grey'
+          colorKeyboard(lettersGuessed[i], 'grey')
+        }
+      }, 100 * i)
+    })
   }
 
   const keyEntry = (letter) => {

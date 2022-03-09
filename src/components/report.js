@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react';
 const Report = ({attempts, letterCount, pass, totalAttempts, restart, word, maxLetters, indices}) => {
     const [playNewGame, setPlayNewGame] = useState(false)
     const [numOfLetters, setNumOfLetters] = useState(5)
+    const [mouseOverButton, setMouseOverButton] = useState(false)
 
     useEffect(() => {
         let k = Array.from(document.getElementsByClassName("letter-box-result"))
@@ -41,6 +42,12 @@ const Report = ({attempts, letterCount, pass, totalAttempts, restart, word, maxL
         setPlayNewGame(true)
     }
 
+    const buttonHover = () => {
+        setMouseOverButton(true)
+    }
+
+    
+
     return (
         <div className = "report-cover">
             <div className= "report-card">
@@ -51,7 +58,7 @@ const Report = ({attempts, letterCount, pass, totalAttempts, restart, word, maxL
                         Congratulations!!!
                     </h1>
 
-                    <p>
+                    <p style= {{fontSize: "20px"}}>
                         {`You successfully got the word: "${word.toUpperCase()}" in ${attempts}/${totalAttempts} tries.`}
                     </p>
 
@@ -94,7 +101,11 @@ const Report = ({attempts, letterCount, pass, totalAttempts, restart, word, maxL
                         </>)
                 }
 
-                <button className= "report-card-button" onClick= {playNewGame ? () => restart(numOfLetters) : startGame}>
+                <button style= {mouseOverButton ? {backgroundColor: "black", color: "white", fontSize: "large"} : {backgroundColor: "white", color: "black"}} 
+                className= "report-card-button" 
+                onClick= {playNewGame ? () => restart(numOfLetters) : startGame} 
+                onMouseOver= {buttonHover} 
+                onMouseOut= {() => setMouseOverButton(false)}>
                     {playNewGame ? 'Play' : 'Play Again'}
                 </button>
 
