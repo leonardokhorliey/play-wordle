@@ -54,7 +54,7 @@ const Report = ({attempts, letterCount, pass, totalAttempts, restart, word, maxL
                 
                 {!playNewGame && <div>
                     {pass ? (<>
-                    <h1>
+                    <h1 style= {{fontSize: '100%'}}>
                         Congratulations!!!
                     </h1>
 
@@ -79,7 +79,7 @@ const Report = ({attempts, letterCount, pass, totalAttempts, restart, word, maxL
 
                 {
                     playNewGame && (<>
-                        <h1>
+                        <h1 style= {{fontSize: '100%'}}>
                             Play Again
                         </h1>
         

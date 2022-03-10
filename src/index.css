@@ -67,7 +67,10 @@ code {
 
 .keyboard-row {
   display: flex;
+  flex-direction: row;
   margin: 0.5rem 0;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .keyboard-key {
@@ -131,33 +134,35 @@ code {
 .letter-count-change {
   display: flex;
   align-items: center;
-  height: 5rem;
   width: 50%;
+  aspect-ratio: 1/0.2;
   margin: 2.5rem auto;
 
 }
 
 .letter-count-change button {
+  display: flex;
   height: 80%;
   aspect-ratio: 1/1;
   border: 3px solid white;
   border-radius: 50%;
-  text-align: center;
   align-items: center;
+  justify-content: center;
   font-weight: 900;
-  font-size: 50px;
+  font-size: 30px;
   color: white;
   background-color: transparent;
   cursor: pointer;
 }
 
 .letter-count-change div {
+  display: flex;
+  justify-content: center;
   height: 100%;
   margin: auto;
   width: 50rem;
   text-align: center;
   font-weight: 400;
   align-items: center;
-  padding-top: 20px;
 
 }

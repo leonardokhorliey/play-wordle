@@ -162,8 +162,7 @@ function App() {
     let keys = Array.from(document.getElementsByClassName("keyboard-key"))
     let p = keys[keys.findIndex((t) => t.textContent === letter)]
     if (p.style.backgroundColor === 'green') return
-    if (p.style.backgroundColor === 'yellow' && color === 'green') {
-      p.style.backgroundColor = color
+    if (p.style.backgroundColor === 'yellow' && color !== 'green') {
       return
     }
     p.style.backgroundColor = color
@@ -176,7 +175,7 @@ function App() {
   
   return (
     <div className="App" onKeyDown = {onKeyPress} tabIndex = "0">
-      <header className="App-header">
+      <div className="App-header">
         <h1>Wordle Clone</h1>
         <Boxes numberOfAttempts = {NUMBER_OF_ATTEMPTS} numberOfLetters = {NUMBER_OF_LETTERS}  />
         <ScreenKeyboard btnClick = {keyEntry} />
@@ -203,7 +202,7 @@ function App() {
         >
           GitHub
         </a>
-      </header>
+      </div>
     </div>
   );
 }
